@@ -53,17 +53,17 @@ namespace BackgroundTest
 
         public void FixUsingFieldLinqExpression()
         {
-            operation = Background<ISlowMethod>.StartMethod(() => operation, operation.Perform, methodInterception);
+            operation = Background<ISlowMethod>.StartMethod(operation.Perform, () => operation, methodInterception);
         }
 
         public void FixUsingGenericAction()
         {
-            operation = Background<ISlowMethod>.StartMethod((newValue) => operation = newValue, operation.Perform, methodInterception);
+            operation = Background<ISlowMethod>.StartMethod(operation.Perform, (newValue) => operation = newValue, methodInterception);
         }
 
         public void FixUsingUserDefinedSetter()
         {
-            operation = Background<ISlowMethod>.StartMethod(this, operation.Perform, methodInterception);
+            operation = Background<ISlowMethod>.StartMethod(operation.Perform, this, methodInterception);
         }
 
         public void SetBack(ISlowMethod instance)
@@ -73,7 +73,7 @@ namespace BackgroundTest
 
         public void FixUsingPopertyLinqExpression()
         {
-            Operation = Background<ISlowMethod>.StartMethod(() => Operation, Operation.Perform, methodInterception);
+            Operation = Background<ISlowMethod>.StartMethod(Operation.Perform, () => Operation,  methodInterception);
         }
 
         public void InvokeContainee()

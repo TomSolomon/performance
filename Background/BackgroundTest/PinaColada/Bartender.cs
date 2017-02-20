@@ -62,18 +62,18 @@ namespace BackgroundTest.PinaColada
 
         public void MakeMePinaColadaFast()
         {
-            openBlender = Background<IPinaColadaStep>.StartMethod(() => openBlender, openBlender.Perform, methodInterception);
-            openPiñaColadaMix = Background<IPinaColadaStep>.StartMethod(() => openPiñaColadaMix, openPiñaColadaMix.Perform, methodInterception);
-            putMixInBlender = Background<IPinaColadaStep>.StartMethod(() => putMixInBlender, putMixInBlender.Perform, methodInterception);
-            measureHalfCupWhiteRum = Background<IPinaColadaStep>.StartMethod(() => measureHalfCupWhiteRum, measureHalfCupWhiteRum.Perform, methodInterception);
-            pourInRum = Background<IPinaColadaStep>.StartMethod(() => pourInRum, pourInRum.Perform, methodInterception);
-            add2cupsIfIce = Background<IPinaColadaStep>.StartMethod(() => add2cupsIfIce, add2cupsIfIce.Perform, methodInterception);
-            closeBlender = Background<IPinaColadaStep>.StartMethod(() => closeBlender, closeBlender.Perform, methodInterception);
-            liquefyFor2Minutes = Background<IPinaColadaStep>.StartMethod(() => liquefyFor2Minutes, liquefyFor2Minutes.Perform, methodInterception);
-            openBlenderAgain = Background<IPinaColadaStep>.StartMethod(() => openBlenderAgain, openBlenderAgain.Perform, methodInterception);
-            getGlasses = Background<IPinaColadaStep>.StartMethod(() => getGlasses, getGlasses.Perform, methodInterception);
-            getPinkUmbrellas = Background<IPinaColadaStep>.StartMethod(() => getPinkUmbrellas, getPinkUmbrellas.Perform, methodInterception);
-            serve = Background<IPinaColadaStep>.StartMethod(() => serve, serve.Perform, methodInterception);
+            openBlender = Background<IPinaColadaStep>.StartMethod(openBlender.Perform, () => openBlender, methodInterception);
+            openPiñaColadaMix = Background<IPinaColadaStep>.StartMethod(openPiñaColadaMix.Perform, () => openPiñaColadaMix, methodInterception);
+            putMixInBlender = Background<IPinaColadaStep>.StartMethod(putMixInBlender.Perform, () => putMixInBlender,  methodInterception);
+            measureHalfCupWhiteRum = Background<IPinaColadaStep>.StartMethod(measureHalfCupWhiteRum.Perform, () => measureHalfCupWhiteRum, methodInterception);
+            pourInRum = Background<IPinaColadaStep>.StartMethod(pourInRum.Perform, () => pourInRum, methodInterception);
+            add2cupsIfIce = Background<IPinaColadaStep>.StartMethod(add2cupsIfIce.Perform,() => add2cupsIfIce,  methodInterception);
+            closeBlender = Background<IPinaColadaStep>.StartMethod(closeBlender.Perform,() => closeBlender,  methodInterception);
+            liquefyFor2Minutes = Background<IPinaColadaStep>.StartMethod(liquefyFor2Minutes.Perform,() => liquefyFor2Minutes,  methodInterception);
+            openBlenderAgain = Background<IPinaColadaStep>.StartMethod(openBlenderAgain.Perform,() => openBlenderAgain,  methodInterception);
+            getGlasses = Background<IPinaColadaStep>.StartMethod(getGlasses.Perform,() => getGlasses,  methodInterception);
+            getPinkUmbrellas = Background<IPinaColadaStep>.StartMethod(getPinkUmbrellas.Perform,() => getPinkUmbrellas,  methodInterception);
+            serve = Background<IPinaColadaStep>.StartMethod(serve.Perform,() => serve, methodInterception);
         }
     }
 }

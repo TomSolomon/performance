@@ -57,6 +57,7 @@
     <Compile Include="PinaColada\PinaColadaTest.cs" />
     <Compile Include="PinaColada\StepInterceptor.cs" />
     <Compile Include="SlowMethod.cs" />
+    <Compile Include="TestConstructor\DatabaseTest.cs" />
     <Compile Include="TestConstructor\ISlowCtor.cs" />
     <Compile Include="TestConstructor\SlowConstructorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

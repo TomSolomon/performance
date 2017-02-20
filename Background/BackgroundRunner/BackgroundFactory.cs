@@ -20,9 +20,9 @@ namespace Performance
         /// <param name="longOperation">A long operation</param>
         /// <param name="interceptor">A Func that will be used to register a callback when the invoked target is called</param>
         /// <returns>A wrapper around the target object that will intercept his members invocation</returns>
-        public static T StartMethod(Expression<Func<T>> setter, Action longOperation, Func<T, Action, T> methodInterceptor)
+        public static T StartMethod(Action longOperation, Expression<Func<T>> setter, Func<T, Action, T> methodInterceptor)
         {
-            return StartMethod(new LinqSetter<T>(setter), longOperation, methodInterceptor);
+            return StartMethod(longOperation, new LinqSetter<T>(setter), methodInterceptor);
         }
 
         /// <summary>
@@ -33,9 +33,9 @@ namespace Performance
         /// <param name="longOperation">A long operation</param>
         /// <param name="interceptor">A Func that will be used to register a callback when the invoked target is called</param>
         /// <returns>A wrapper around the target object that will intercept his members invocation</returns>
-        public static T StartMethod(Action setter, Action longOperation, Func<T, Action, T> methodInterceptor)
+        public static T StartMethod(Action longOperation, Action setter, Func<T, Action, T> methodInterceptor)
         {
-            return StartMethod(new ActionSetter<T>(setter), longOperation, methodInterceptor);
+            return StartMethod(longOperation, new ActionSetter<T>(setter), methodInterceptor);
         }
 
         /// <summary>
@@ -46,9 +46,9 @@ namespace Performance
         /// <param name="longOperation">A long operation</param>
         /// <param name="interceptor">A Func that will be used to register a callback when the invoked target is called</param>
         /// <returns>A wrapper around the target object that will intercept his members invocation</returns>
-        public static T StartMethod(Action<T> setter, Action longOperation, Func<T, Action, T> methodInterceptor)
+        public static T StartMethod(Action longOperation, Action<T> setter, Func<T, Action, T> methodInterceptor)
         {
-            return StartMethod(new ActionSetter<T>(setter), longOperation, methodInterceptor);
+            return StartMethod(longOperation, new ActionSetter<T>(setter), methodInterceptor);
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace Performance
         /// <param name="longOperation">A long operation</param>
         /// <param name="interceptor">A Func that will be used to register a callback when the invoked target is called</param>
         /// <returns>A wrapper around the target object that will intercept his members invocation</returns>
-        public static T StartMethod(ISetter<T> setter, Action longOperation, Func<T, Action, T> methodInterceptor)
+        public static T StartMethod(Action longOperation, ISetter<T> setter, Func<T, Action, T> methodInterceptor)
         {
             return StartMethodInternally(new BackgroundRunner<T>(longOperation, setter), (T)longOperation.Target, methodInterceptor);
         }
@@ -75,9 +75,9 @@ namespace Performance
         /// <param name="longOperation">A long operation</param>
         /// <param name="interceptor">A Func that will be used to register a callback when the invoked target is called</param>
         /// <returns>A wrapper around the target object that will intercept his members invocation</returns>
-        public static T StartCtor(Action<T> setter, Func<T> longCtor, Func<Func<T>, T> ctorInterceptor)
+        public static T StartCtor(Func<T> longCtor, Action<T> setter, Func<Func<T>, T> ctorInterceptor)
         {
-            return StartCtor(new ActionSetter<T>(setter), longCtor, ctorInterceptor);
+            return StartCtor(longCtor, new ActionSetter<T>(setter), ctorInterceptor);
         }
 
         /// <summary>
@@ -88,9 +88,9 @@ namespace Performance
         /// <param name="longOperation">A long operation</param>
         /// <param name="interceptor">A Func that will be used to register a callback when the invoked target is called</param>
         /// <returns>A wrapper around the target object that will intercept his members invocation</returns>
-        public static T StartCtor(Expression<Func<T>> setter, Func<T> longCtor, Func<Func<T>, T> ctorInterceptor)
+        public static T StartCtor(Func<T> longCtor, Expression<Func<T>> setter, Func<Func<T>, T> ctorInterceptor)
         {
-            return StartCtor(new LinqSetter<T>(setter), longCtor, ctorInterceptor);
+            return StartCtor(longCtor, new LinqSetter<T>(setter), ctorInterceptor);
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace Performance
         /// <param name="longOperation">A long operation</param>
         /// <param name="interceptor">A Func that will be used to register a callback when the invoked target is called</param>
         /// <returns>A wrapper around the target object that will intercept his members invocation</returns>
-        public static T StartCtor(ISetter<T> setter, Func<T> longCtor, Func<Func<T>, T> ctorInterceptor)
+        public static T StartCtor(Func<T> longCtor, ISetter<T> setter, Func<Func<T>, T> ctorInterceptor)
         {
             return StartCtorInternally(new BackgroundRunner<T>(longCtor, setter), ctorInterceptor);
         }

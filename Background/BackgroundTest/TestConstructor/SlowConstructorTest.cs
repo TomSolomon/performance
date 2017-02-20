@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Threading;
 
 namespace BackgroundTest.TestConstructor
 {  
@@ -55,6 +56,31 @@ namespace BackgroundTest.TestConstructor
             var slowCtor = new SlowCtor2(timeout);
             TimeoutUtil.TestImmidiate(slowCtor.PropertyLinqSetter);
             TimeoutUtil.Test(slowCtor.InvokeObject, timeout);
+        }
+
+        [TestMethod]
+        public void SlowCtorMyModelTest()
+        {
+            MyModel slowCtor = null;            
+            TimeoutUtil.Test(() => slowCtor = new MyModel(), Database.DatabaseContructionTime);
+            Assert.IsNotNull(slowCtor);
+            int? id = null;
+            TimeoutUtil.TestImmidiate(() => id = slowCtor.GetID("bla bla bla"));
+            Assert.IsTrue(id.HasValue && id == Database.DatabaseOnlyID);
+        }
+
+        [TestMethod]
+        public void SlowCtorMyModelFixedTest()
+        {
+            MyModelFixed slowCtor = null;
+            TimeoutUtil.TestImmidiate(() => slowCtor = new MyModelFixed());
+            Assert.IsNotNull(slowCtor);
+
+            Thread.Sleep(Database.DatabaseContructionTime);
+
+            int? id = null;
+            TimeoutUtil.TestImmidiate(() => id = slowCtor.GetID("bla bla bla"));
+            Assert.IsTrue(id.HasValue && id == Database.DatabaseOnlyID);
         }
     }
 }

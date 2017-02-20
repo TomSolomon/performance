@@ -3,7 +3,7 @@ using Performance.Setters;
 using System;
 
 namespace BackgroundTest.TestConstructor
-{
+{    
     public class SlowCtor1
     {
         TimeSpan timeSpan;
@@ -16,15 +16,15 @@ namespace BackgroundTest.TestConstructor
 
         public void GenericActionFieldSetter()
         {
-            objWithSlowCtor = Background<ISlowCtor>.StartCtor((newVal) => objWithSlowCtor = newVal,
-               () => new SlowCtor(timeSpan),
-               cb => new SlowCtorInterceptor(cb));
+            objWithSlowCtor = Background<ISlowCtor>.StartCtor(() => new SlowCtor(timeSpan), 
+                (newVal) => objWithSlowCtor = newVal,
+                cb => new SlowCtorInterceptor(cb));
         }
 
         public void FieldLinqSetter()
         {
-            objWithSlowCtor = Background<ISlowCtor>.StartCtor(() => objWithSlowCtor,
-               () => new SlowCtor(timeSpan),
+            objWithSlowCtor = Background<ISlowCtor>.StartCtor(() => new SlowCtor(timeSpan),
+               () => objWithSlowCtor,
                cb => new SlowCtorInterceptor(cb));
         }
 
@@ -47,15 +47,15 @@ namespace BackgroundTest.TestConstructor
 
         public void GenericActionPropertySetter()
         {
-            ObjWithSlowCtor = Background<ISlowCtor>.StartCtor((newVal) => ObjWithSlowCtor = newVal,
-               () => new SlowCtor(timeSpan),
+            ObjWithSlowCtor = Background<ISlowCtor>.StartCtor(() => new SlowCtor(timeSpan), 
+               (newVal) => ObjWithSlowCtor = newVal,              
                cb => new SlowCtorInterceptor(cb));
         }
 
         public void PropertyLinqSetter()
         {
-            ObjWithSlowCtor = Background<ISlowCtor>.StartCtor(() => ObjWithSlowCtor,
-                () => new SlowCtor(timeSpan),
+            ObjWithSlowCtor = Background<ISlowCtor>.StartCtor(() => new SlowCtor(timeSpan),
+                () => ObjWithSlowCtor,
                 cb => new SlowCtorInterceptor(cb));
         }
 
@@ -83,8 +83,8 @@ namespace BackgroundTest.TestConstructor
 
         public void UserDefineSetter()
         {
-            Value = Background<ISlowCtor>.StartCtor(this,
-               () => new SlowCtor(timeSpan),
+            Value = Background<ISlowCtor>.StartCtor(() => new SlowCtor(timeSpan),
+               this,
                cb => new SlowCtorInterceptor(cb));
         }
 

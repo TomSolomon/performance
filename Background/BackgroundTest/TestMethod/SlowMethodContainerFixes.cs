@@ -39,17 +39,17 @@ namespace BackgroundTest.TestMethod
             // for this example we will imitate a creation of SlowOperation localy and passing a reference to the newly created one
             // and using it to set back to new value
             ISlowMethod localRef = operation;//new SlowOperation(timeout);
-            operation = Background<ISlowMethod>.StartMethod((Action)(() => operation = localRef), localRef.Perform, methodInterception);
+            operation = Background<ISlowMethod>.StartMethod(localRef.Perform, (Action)(() => operation = localRef), methodInterception);
         }
 
         public void FixUsingFieldLinqExpression()
         {
-            operation = Background<ISlowMethod>.StartMethod(() => operation, operation.Perform, methodInterception);
+            operation = Background<ISlowMethod>.StartMethod(operation.Perform, () => operation, methodInterception);
         }
 
         public void FixUsingGenericAction()
         {
-            operation = Background<ISlowMethod>.StartMethod((newVal) => operation = newVal, operation.Perform, methodInterception);
+            operation = Background<ISlowMethod>.StartMethod(operation.Perform, (newVal) => operation = newVal, methodInterception);
         }
     }
 
@@ -63,7 +63,7 @@ namespace BackgroundTest.TestMethod
 
         public void FixUsingUserDefinedSetter()
         {
-            operation = Background<ISlowMethod>.StartMethod(this, operation.Perform, methodInterception);
+            operation = Background<ISlowMethod>.StartMethod(operation.Perform, this, methodInterception);
         }
 
         public void SetBack(ISlowMethod instance)
@@ -89,7 +89,7 @@ namespace BackgroundTest.TestMethod
 
         public void FixUsingPopertyLinqExpression()
         {
-            OpProp = Background<ISlowMethod>.StartMethod(() => OpProp, OpProp.Perform, methodInterception);
+            OpProp = Background<ISlowMethod>.StartMethod(OpProp.Perform, () => OpProp, methodInterception);
         }        
     }
 }
